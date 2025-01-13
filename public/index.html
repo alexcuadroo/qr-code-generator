@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Alex Cuadro" />
+    <meta
+      name="description"
+      content="Generador gratuito de Código QR para URLs"
+    />
+    <meta
+      name="keywords"
+      content="generador de código qr, generador de qr, generador de qrcode, generador de código, generador de qrcode, generador de url, url, qrcode, qr, código qr, código qrcode"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="favicon.webp" />
+    <meta property="og:title" content="QR GEN" />
+    <meta
+      property="og:description"
+      content="Generador gratuito de Código QR para URLs"
+    />
+    <meta property="og:image" content="https://qr.edualex.uy/og.webp" />
+    <meta property="og:url" content="https://qr.edualex.uy/" />
+    <meta property="og:site_name" content="QR GEN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+
+    <title>Generador de QR | QR GEN</title>
+    <style>
+      :root {
+        --bg-color-light: #ffffff;
+        --text-color-light: #333333;
+        --bg-color-dark: #121212;
+        --text-color-dark: #ffffff;
+        --primary-color: #0078d4;
+        --input-bg-light: #f0f0f0;
+        --input-bg-dark: #1f1f1f;
+        --input-border-light: #cccccc;
+        --input-border-dark: #444444;
+        scrollbar-width: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        body {
+          background-color: var(--bg-color-light);
+          color: var(--text-color-light);
+          scrollbar-width: none;
+        }
+        input {
+          background-color: var(--input-bg-light);
+          border: 1px solid var(--input-border-light);
+          color: var(--text-color-light);
+        }
+        button {
+          background-color: var(--primary-color);
+          color: #ffffff;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: var(--bg-color-dark);
+          color: var(--text-color-dark);
+        }
+        input {
+          background-color: var(--input-bg-dark);
+          border: 1px solid var(--input-border-dark);
+          color: var(--text-color-dark);
+        }
+        button {
+          background-color: var(--primary-color);
+          color: #ffffff;
+        }
+      }
+
+      body {
+        font-family: system-ui, "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      #result {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      #qrCode {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        transition: border-color 0.3s;
+      }
+
+      @media (prefers-color-scheme: light) {
+        #qrCode {
+          border-color: var(--input-border-light);
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #qrCode {
+          border-color: var(--input-border-dark);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR GEN</h1>
+    <form id="qrForm">
+      <input
+        type="url"
+        id="urlInput"
+        placeholder="Ingresa una URL"
+        autofocus
+        required
+      />
+      <button type="submit">Generar QR</button>
+    </form>
+    <div id="result">
+      <img id="qrCode" alt="Código QR generado" />
+      <a id="downloadBtn" style="display: none" download="qrcode.png">
+        <button>Descargar QR</button>
+      </a>
+    </div>
+
+    <script>
+      document
+        .getElementById("qrForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const url = document.getElementById("urlInput").value;
+
+          try {
+            const response = await fetch("/api/generate.js", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ url }),
+            });
+            const data = await response.json();
+            const qrCodeImage = document.getElementById("qrCode");
+            qrCodeImage.src = data.qrCode;
+
+            // Muestra el botón de descarga y establece el href
+            const downloadBtn = document.getElementById("downloadBtn");
+            downloadBtn.href = data.qrCode; // URL de la imagen
+            downloadBtn.style.display = "block"; // Hace visible el botón
+          } catch (err) {
+            alert("Error al generar el QR");
+          }
+        });
+    </script>
+    <script
+      defer
+      src="https://umami-production-50e0.up.railway.app/script.js"
+      data-website-id="151cd84f-545e-4e5c-af2e-c3126cc2a09f"
+    ></script>
+  </body>
+</html>
