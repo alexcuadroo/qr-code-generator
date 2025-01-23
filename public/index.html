@@ -192,10 +192,9 @@
             const qrCodeImage = document.getElementById("qrCode");
             qrCodeImage.src = data.qrCode;
 
-            // Muestra el botón de descarga y establece el href
             const downloadBtn = document.getElementById("downloadBtn");
-            downloadBtn.href = data.qrCode; // URL de la imagen
-            downloadBtn.style.display = "block"; // Hace visible el botón
+            downloadBtn.href = data.qrCode; 
+            downloadBtn.style.display = "block";
           } catch (err) {
             alert("Error al generar el QR");
           }
