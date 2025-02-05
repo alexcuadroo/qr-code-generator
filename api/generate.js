@@ -1,18 +1,21 @@
 const qrcode = require('qrcode');
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
     if (req.method === 'POST') {
-        const { url } = req.body;
-        if (!url) return res.status(400).json({ error: 'URL es requerida' });
+        const { text, size } = req.body;
+
+        if (!text) return res.status(400).json({ error: 'Texto o URL es requerido' });
 
         try {
-            const qrCode = await qrcode.toDataURL(url);
+            // Generar el QR code
+            const qrCode = await qrcode.toDataURL(text, { width: size || 200 });
             res.status(200).json({ qrCode });
         } catch (err) {
+            console.error(err);
             res.status(500).json({ error: 'Error al generar el QR' });
         }
     } else {
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Método ${req.method} no permitido`);
     }
-}
+};

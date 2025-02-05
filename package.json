@@ -1,10 +1,11 @@
 {
   "name": "8_qr_code",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Generador de Código QR para URLs, con backend en Node.js\r No hay librerias de dev instaladas, se está desplegando con Vercel",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Alex Cuadro",
