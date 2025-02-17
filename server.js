@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Ruta para la API de generación de QR
 app.use('/api/generate.js', require('./api/generate.js'));
 
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
