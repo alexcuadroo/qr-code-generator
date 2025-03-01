@@ -57,7 +57,7 @@
         display: flex;
         flex-direction: row;
         gap: 20px;
-        margin-top: 20vh;
+        margin-top: 14vh;
       }
       .content header {
         text-align: center;
@@ -70,7 +70,7 @@
       header h1 {
         font-size: 5rem;
         margin-bottom: 20px;
-        margin-top: 0;
+        margin-top: 2vh;
       }
       .column #qrForm {
         padding: 20px;
@@ -138,6 +138,24 @@
       #downloadBtn button:hover {
         background-color: #218838;
       }
+      #toggleColorInputs {
+        background-color: transparent;
+        max-width: 60%;
+        margin: auto;
+        text-decoration: underline;
+        color: white;
+        opacity: 0.8;
+        border: none;
+        cursor: pointer;
+      }
+      label {
+        opacity: 0.5;
+      }
+      #color,
+      #backgroundColor {
+        height: 40px;
+        padding: 2px;
+      }
 
       /* Modo Light (por defecto) */
       @media (prefers-color-scheme: light) {
@@ -164,7 +182,15 @@
         #downloadBtn button {
           background-color: #28a745;
         }
-
+        #toggleColorInputs {
+          background-color: transparent;
+          max-width: 60%;
+          margin: auto;
+          text-decoration: underline;
+          color: rgb(0, 0, 0);
+          border: none;
+          cursor: pointer;
+        }
         #downloadBtn button:hover {
           background-color: #218838;
         }
@@ -179,11 +205,10 @@
 
         input,
         button {
-          background-color: #1e1e1e;
+          background-color: #00000000;
           border-color: #333;
-          color: #ffffff;
+          color: #fff;
         }
-
         button {
           background-color: #1a73e8;
         }
@@ -191,7 +216,11 @@
         button:hover {
           background-color: #1557b0;
         }
-
+        #toggleColorInputs {
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
         #downloadBtn button {
           background-color: #34a853;
         }
@@ -240,13 +269,46 @@
               autofocus
               required
             />
-            <input
-              type="number"
-              id="sizeInput"
-              placeholder="Tamaño del QR (opcional)"
-              min="150"
-              max="1000"
-            />
+
+            <!-- Botón para mostrar/ocultar -->
+            <button type="button" id="toggleColorInputs">
+              Opciones avanzadas
+            </button>
+
+            <div
+              id="colorInputs"
+              style="
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 10px;
+              "
+            >
+              <input
+                type="number"
+                id="sizeInput"
+                placeholder="Tamaño del QR (150~1000px)"
+                min="150"
+                max="1000"
+              />
+              <label for="color">Color del QR y del Fondo:</label>
+              <div style="display: flex; gap: 10px">
+                <input
+                  type="color"
+                  id="color"
+                  name="color"
+                  value="#000000"
+                  style="width: 200px"
+                />
+                <input
+                  type="color"
+                  id="backgroundColor"
+                  name="backgroundColor"
+                  value="#ffffff"
+                  style="width: 200px"
+                />
+              </div>
+            </div>
             <button type="submit">Generar QR</button>
           </form>
           <div id="result">
@@ -266,12 +328,15 @@
 
           const text = document.getElementById("textInput").value;
           const size = document.getElementById("sizeInput").value;
+          const color = document.getElementById("color").value;
+          const backgroundColor =
+            document.getElementById("backgroundColor").value;
 
           try {
             const response = await fetch("/api/generate.js", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text, size }),
+              body: JSON.stringify({ text, size, color, backgroundColor }),
             });
             const data = await response.json();
 
@@ -289,6 +354,20 @@
             alert("Error al generar el QR");
           }
         });
+    </script>
+    <script>
+      const toggleButton = document.getElementById("toggleColorInputs");
+      const colorInputs = document.getElementById("colorInputs");
+
+      toggleButton.addEventListener("click", () => {
+        if (colorInputs.style.display === "none") {
+          colorInputs.style.display = "flex";
+          toggleButton.textContent = "Ocultar opciones avanzadas";
+        } else {
+          colorInputs.style.display = "none";
+          toggleButton.textContent = "Opciones avanzadas";
+        }
+      });
     </script>
     <footer>
       <p>
