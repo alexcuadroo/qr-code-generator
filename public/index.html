@@ -160,43 +160,6 @@
         height: 40px;
         padding: 2px;
       }
-      .loader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .loader div {
-        width: 10px;
-        height: 10px;
-        background-color: #007bff;
-        border-radius: 50%;
-        animation: loader-animation 1.2s infinite ease-in-out;
-      }
-
-      .loader div:nth-child(1) {
-        animation-delay: -0.24s;
-      }
-
-      .loader div:nth-child(2) {
-        animation-delay: -0.12s;
-      }
-
-      .loader div:nth-child(3) {
-        animation-delay: 0;
-      }
-
-      @keyframes loader-animation {
-        0%,
-        80%,
-        100% {
-          transform: scale(0);
-        }
-        40% {
-          transform: scale(1);
-        }
-      }
       /* Modo Light (por defecto) */
       @media (prefers-color-scheme: light) {
         body {
@@ -309,12 +272,10 @@
               autofocus
               required
             />
-
             <!-- Botón para mostrar/ocultar -->
             <button type="button" id="toggleColorInputs">
               Opciones avanzadas
             </button>
-
             <div
               id="colorInputs"
               style="
