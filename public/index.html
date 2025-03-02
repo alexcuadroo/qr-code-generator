@@ -160,6 +160,53 @@
         height: 40px;
         padding: 2px;
       }
+      a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 18px;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.685); 
+        z-index: 999;
+      }
+
+      .banner {
+        display: none; 
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(29, 29, 29);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        text-align: center;
+        width: 330px;
+      }
+      .banner a:hover {
+        color: green;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .close-btn:hover {
+        color: #a70000;
+      }
       /* Modo Light (por defecto) */
       @media (prefers-color-scheme: light) {
         body {
@@ -272,7 +319,6 @@
               autofocus
               required
             />
-            <!-- Botón para mostrar/ocultar -->
             <button type="button" id="toggleColorInputs">
               Opciones avanzadas
             </button>
@@ -325,6 +371,25 @@
         </div>
       </section>
     </main>
+    <div id="overlay" class="overlay"></div>
+    <div id="banner" class="banner">
+      <span id="closeBanner" class="close-btn">&times;</span>
+      <p>
+        Primero acorta tu URL con <a href="https://short.uy">Nano URL</a> y
+        luego genera el QR con este generador.
+      </p>
+      <p>De esa forma podrás llevar un control de visitas o quitar acceso.</p>
+    </div>
+    <footer>
+      <p>
+        <strong>¿Quieres hacer un seguimiento de tus QR? </strong
+        ><a href="#" id="openBanner">Leer más</a>
+      </p>
+      <p>
+        &copy; 2025 QR Gen by
+        <a href="https://edualex.uy" target="_blank">EduAlex</a>
+      </p>
+    </footer>
     <script>
       document
         .getElementById("qrForm")
@@ -374,12 +439,32 @@
         }
       });
     </script>
-    <footer>
-      <p>
-        &copy; 2025 QR Gen by
-        <a href="https://edualex.uy" target="_blank">EduAlex</a>
-      </p>
-    </footer>
+    <script>
+      const openBannerLink = document.getElementById("openBanner");
+      const overlay = document.getElementById("overlay");
+      const banner = document.getElementById("banner");
+      const closeBannerBtn = document.getElementById("closeBanner");
+
+      function showBanner() {
+        overlay.style.display = "block";
+        banner.style.display = "block"; 
+      }
+
+      function hideBanner() {
+        overlay.style.display = "none"; 
+        banner.style.display = "none"; 
+      }
+
+      openBannerLink.addEventListener("click", function (event) {
+        event.preventDefault(); 
+        showBanner();
+      });
+
+      closeBannerBtn.addEventListener("click", hideBanner);
+
+      overlay.addEventListener("click", hideBanner);
+    </script>
+
     <script
       defer
       src="https://umami-production-50e0.up.railway.app/script.js"
