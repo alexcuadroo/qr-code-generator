@@ -158,7 +158,7 @@
       #color,
       #backgroundColor {
         height: 40px;
-        padding: 2px;
+        padding: 4px 5px;
       }
       a {
         text-decoration: none;
@@ -173,12 +173,12 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.685); 
+        background-color: rgba(0, 0, 0, 0.685);
         z-index: 999;
       }
 
       .banner {
-        display: none; 
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -447,16 +447,16 @@
 
       function showBanner() {
         overlay.style.display = "block";
-        banner.style.display = "block"; 
+        banner.style.display = "block";
       }
 
       function hideBanner() {
-        overlay.style.display = "none"; 
-        banner.style.display = "none"; 
+        overlay.style.display = "none";
+        banner.style.display = "none";
       }
 
       openBannerLink.addEventListener("click", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         showBanner();
       });
 
