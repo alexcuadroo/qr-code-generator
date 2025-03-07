@@ -6,7 +6,7 @@ const cors = require('cors');
 const allowedOrigins = ['http://localhost:4000', 'https://eduhistoria.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
-    methods: ['POST'],
+    methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
 app.use(express.json());
