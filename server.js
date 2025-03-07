@@ -9,10 +9,10 @@ app.use(cors({
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
-app.options('/api/generate.js', cors());
+app.options('/api/generate', cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api/generate.js', require('./api/generate.js'));
+app.use('/api/generate', require('./api/generate.js'));
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
