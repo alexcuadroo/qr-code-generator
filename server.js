@@ -15,12 +15,6 @@ app.options('/api/generate', (req, res) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.sendStatus(204);
 });
-app.post('/api/generate', (req, res) => {
-    if (!text || typeof text !== 'string') {
-        return res.status(400).json({ error: 'El campo "text" es requerido y debe ser una cadena de texto.' });
-    }
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-});
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/generate', require('./api/generate.js'));
