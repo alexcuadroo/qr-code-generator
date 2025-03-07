@@ -13,6 +13,9 @@ app.use(cors({
 app.options('/api/generate', (req, res) => {
     res.sendStatus(204); // Sin contenido, pero permite la solicitud
 });
+app.post('/api/generate', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+});
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/generate', require('./api/generate.js'));
