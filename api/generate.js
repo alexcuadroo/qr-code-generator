@@ -1,12 +1,5 @@
 const qrcode = require('qrcode');
-const cors = require('cors');
-const allowedOrigins = ['http://localhost:3000', 'https://eduhistoria.vercel.app'];
 
-app.use(cors({
-    origin: allowedOrigins,
-    methods: ['POST'],
-    allowedHeaders: ['Content-Type']
-}));
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
         const { text, size, color, backgroundColor } = req.body;
