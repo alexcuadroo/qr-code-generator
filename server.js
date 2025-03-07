@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:3000', 'https://eduhistoria.vercel.app'];
+const allowedOrigins = ['http://localhost:4000', 'https://eduhistoria.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['POST'],
