@@ -1,7 +1,7 @@
 const qrcode = require('qrcode');
 export default async function handler(req, res) {
     if (req.method === 'OPTIONS') {
-        res.setHeader('Access-Control-Allow-Origin', ['https://eduhistoria.vercel.app', 'http://localhost:4000']);
+        res.setHeader('Access-Control-Allow-Origin', 'https://eduhistoria.vercel.app');
         res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         return res.status(204).end(); // Finaliza el preflight sin contenido
