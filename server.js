@@ -3,9 +3,8 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
-const allowedOrigins = ['https://historia.edualex.uy'];
 app.use(cors({
-    origin: allowedOrigins,
+    origin: 'https://historia.edualex.uy',
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
