@@ -9,6 +9,7 @@ app.use(cors({
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
+app.options('/api/generate.js', cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/generate.js', require('./api/generate.js'));
