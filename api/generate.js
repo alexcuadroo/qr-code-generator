@@ -1,4 +1,4 @@
-import qrcode from 'qrcode';
+const qrcode = require('qrcode');
 export default async function handler(req, res) {
     if (req.method === 'OPTIONS') {
         res.setHeader('Access-Control-Allow-Origin', 'https://eduhistoria.vercel.app');
