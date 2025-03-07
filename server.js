@@ -3,17 +3,22 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:4000', 'https://eduhistoria.vercel.app'];
-app.use(cors({
-    origin: allowedOrigins,
-    methods: ['POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type']
-}));
+const corsOptions = {
+    origin: ['https://eduhistoria.vercel.app', 'http://localhost:4000'],  // Permitir ambos
+    methods: 'POST,OPTIONS',
+    allowedHeaders: 'Content-Type'
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 // Manejar preflight (OPTIONS)
 app.options('/api/generate', (req, res) => {
     res.sendStatus(204); // Sin contenido, pero permite la solicitud
 });
-app.use(express.json());
+app.post('/api/generate', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/generate', require('./api/generate.js'));
 app.use((req, res) => {
