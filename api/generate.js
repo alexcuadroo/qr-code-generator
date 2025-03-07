@@ -1,12 +1,6 @@
 const qrcode = require('qrcode');
-export default async function handler(req, res) {
-    if (req.method === 'OPTIONS') {
-        res.setHeader('Access-Control-Allow-Origin', 'https://eduhistoria.vercel.app');
-        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-        return res.status(204).end(); // Finaliza el preflight sin contenido
-    }
 
+module.exports = async (req, res) => {
     if (req.method === 'POST') {
         const { text, size, color, backgroundColor } = req.body;
 
@@ -26,9 +20,7 @@ export default async function handler(req, res) {
             res.status(500).json({ error: 'Error al generar el QR' });
         }
     } else {
-        res.setHeader('Allow', ['POST']);
+        res.setHeader('Allow', ['POST', 'OPTIONS']);
         res.status(405).end(`Método ${req.method} no permitido`);
     }
-
-    return res.status(405).json({ error: 'Método no permitido' });
-}
+};
