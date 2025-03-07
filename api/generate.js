@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
             res.status(500).json({ error: 'Error al generar el QR' });
         }
     } else {
-        res.setHeader('Allow', ['POST', 'OPTIONS']);
+        res.setHeader('Allow', ['POST']);
         res.status(405).end(`Método ${req.method} no permitido`);
     }
 };

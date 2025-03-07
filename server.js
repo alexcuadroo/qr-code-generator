@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:4000', 'https://eduhistoria.vercel.app'];
+const allowedOrigins = ['https://historia.edualex.uy'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['POST', 'OPTIONS'],
@@ -11,9 +11,15 @@ app.use(cors({
 }));
 // Manejar preflight (OPTIONS)
 app.options('/api/generate', (req, res) => {
-    res.sendStatus(204); // Sin contenido, pero permite la solicitud
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.sendStatus(204);
 });
 app.post('/api/generate', (req, res) => {
+    if (!text || typeof text !== 'string') {
+        return res.status(400).json({ error: 'El campo "text" es requerido y debe ser una cadena de texto.' });
+    }
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 });
 app.use(express.json());
