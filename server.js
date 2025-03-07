@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
+const generate = require('./api/generate.js');
 app.use(cors({
     origin: 'https://historia.edualex.uy',
     methods: ['POST', 'OPTIONS'],
@@ -17,7 +18,7 @@ app.options('/api/generate', (req, res) => {
 });
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api/generate', require('./api/generate.js'));
+app.use('/api/generate', generate);
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
