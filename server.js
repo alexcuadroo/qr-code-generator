@@ -4,6 +4,7 @@ const app = express();
 const PORT = 3000;
 const cors = require('cors');
 const generate = require('./api/generate.js');
+const qrcode = require('qrcode');
 app.use(cors({
     origin: 'https://historia.edualex.uy',
     methods: ['POST', 'OPTIONS'],
